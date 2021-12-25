@@ -8,8 +8,8 @@ export default function Index() {
     <Head>
       <title>ContraHacker | Ibrahim Farooqui</title>
     </Head>
-    <main className = {styles.main}>
-      <h1>Website Coming Soon</h1>
+    <main className = { styles.main }>
+      <h1 className = { styles.jumbo } >Website Coming Soon</h1>
     </main>
     </>
   )
