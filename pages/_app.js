@@ -1,7 +1,5 @@
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
+export default function ContraHacker({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
-
-export default MyApp
