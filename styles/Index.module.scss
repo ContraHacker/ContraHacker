@@ -48,3 +48,30 @@ main.main {
         transform: translateX(0);
     }
 }
+
+@keyframes slideFromBottom {
+    from {
+        transform: translateY(100%);
+    }
+    60% {
+        transform: translateY(-7.5%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .jumbo {
+        flex-direction: column;
+
+        h1 {
+            border-left: none;
+            border-top: solid 1px globals.$white;
+        }
+
+        p {
+            animation: slideFromBottom 500ms ease-out forwards;
+        }
+    }
+}
