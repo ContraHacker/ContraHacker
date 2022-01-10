@@ -62,7 +62,8 @@ section.jumbo {
 }
 
 @mixin textPadding {
-    padding: 6rem 10%;
+    margin: 6rem 10%;
+    padding-bottom: 6rem;
     border-bottom: solid thin #ddd;
 }
 
@@ -71,7 +72,7 @@ section.about {
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 3fr 2fr;
-    grid-gap: 2rem;
+    column-gap: 2rem;
     align-items: center;
 }
 
@@ -218,5 +219,16 @@ section.faq {
             animation: slideFromBottom 500ms ease-out forwards;
             text-align: center;
         }
+    }
+}
+
+@media screen and (max-width: 720px) {
+
+    section.about {
+        grid-template-columns: 100%;
+    }
+
+    .trivia {
+        padding: 1rem 2rem;
     }
 }

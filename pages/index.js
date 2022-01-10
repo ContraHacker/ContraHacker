@@ -30,10 +30,6 @@ export default function Index() {
             answer: 'I am a cat person! 😺'
         },
         {
-            question: 'What is your favorite food?',
-            answer: 'Yes.'
-        },
-        {
             question: 'What are you doing these days?',
             answer: 'https://ethicainvest.in',
             type: 'link',
@@ -74,7 +70,7 @@ export default function Index() {
     
                     <div className = { styles.trivia }>
                         <h3>🆒 Fun Fact</h3>
-                        <p>I have nothing to do with hacking. The word &apos;Contra&apos; translates to againts, so I&apos;m against hackers?</p>
+                        <p>I have nothing to do with hacking. In Portuguese, the word &apos;Contra&apos; translates to <u>againts</u>. So I&apos;m against hackers?</p>
                     </div>
 
                 </section>
