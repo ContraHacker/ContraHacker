@@ -1,18 +1,42 @@
 @use './globals.scss';
 
 main.main {
-   background: globals.$purple;
+   background: globals.$white;
 }
 
-.jumbo {
+section.jumbo {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background: globals.$violet;
+    position: relative;
+}
+
+.arrow {
+    position: absolute;
+    bottom: 2rem;
+    animation: wiggle 1s ease-in-out infinite alternate;
+    opacity: 0.5;
+    transition: all 300ms;
+    cursor: pointer;
+
+    &:hover {
+        animation: none;
+        transform: scale(1.25);
+        opacity: 1;
+    }
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     & > * {
         padding: 2rem;
+        flex-shrink: 0;
     }
 
     h1 {
@@ -23,17 +47,125 @@ main.main {
         text-shadow: 10px 10px 0 globals.$purple;
         border-left: solid 1px globals.$white;
         background: globals.$violet;
-        flex-shrink: 0;
         z-index: 1;
     }
     
-    p {
+    h2 {
         font-weight: 300;
         font-size: clamp(1.25rem, 3vw, 3rem);
         color: globals.$white;
         animation: slide 500ms ease-out forwards;
         white-space: nowrap;
         overflow: hidden;
+        text-align: right;
+    }
+}
+
+@mixin textPadding {
+    padding: 6rem 10%;
+    border-bottom: solid thin #ddd;
+}
+
+section.about {
+    @include textPadding;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 2rem;
+    align-items: center;
+}
+
+section.contact {
+    @include textPadding;
+}
+
+section.faq {
+    @include textPadding;
+}
+
+.textContent {
+    @include globals.texty;
+}
+
+.trivia {
+
+    background: globals.$sky;
+    padding: 1rem 3rem;
+    color: #333;
+
+    h3 {
+        font-weight: 400;
+        font-weight: 1.75rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}
+
+.formContainer { 
+    margin: 3rem auto 0 auto;
+    max-width: clamp(30rem, 40rem, 60rem);
+}
+
+.form {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+
+    & > * {
+        width: 100%;
+        padding: 1rem;
+        border: solid 1px #ccc;
+        font-weight: 300;
+        color: #333;
+        font-size: 1.125rem;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    button {
+        background: globals.$mint;
+    }
+}
+
+.faqContent {
+
+    margin-top: 2rem;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        margin-bottom: 1rem;
+        padding: 1rem 2rem;
+        background: globals.$sky;
+        border: solid 1px globals.$mint;
+        transition: all 100ms ease-in-out;
+        
+        &:hover {
+            transform: scale(1.0125);
+            border: solid 2px globals.$mint;
+        }
+    }
+
+    h3 {
+        color: globals.$violet;
+        font-size: 1.25rem;
+        margin-bottom: 3px;
+    }
+
+    p {
+        color: globals.$purple;
+        font-size: 1.125rem;
     }
 }
 
@@ -61,17 +193,30 @@ main.main {
     }
 }
 
+@keyframes wiggle {
+    from {
+        margin-bottom: 5px;
+    }
+    to {
+        margin-bottom: -5px;
+    }
+}
+
 @media screen and (max-width: 500px) {
-    .jumbo {
+
+    .text {
+
         flex-direction: column;
 
         h1 {
             border-left: none;
             border-top: solid 1px globals.$white;
+            text-align: center;
         }
 
-        p {
+        h2 {
             animation: slideFromBottom 500ms ease-out forwards;
+            text-align: center;
         }
     }
 }

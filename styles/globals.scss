@@ -4,3 +4,18 @@ $purple: rgba(71, 49, 152, 1);
 $violet: rgba(74, 13, 103, 1);
 $mint: rgba(173, 252, 146, 1);
 $white: rgba(255, 255, 255, 1);
+
+@mixin texty {
+    
+    h2 {
+        font-weight: 400;
+        color: $purple;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        color: #444;
+        font-size: 1.25rem;
+    }
+}

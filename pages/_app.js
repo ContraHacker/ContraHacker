@@ -25,12 +25,12 @@ export default function ContraHacker({ Component, pageProps }) {
         <>
             <Script
                 strategy = "afterInteractive"
-                src = {`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+                src = { `https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}` }
             />
             <Script
                 id = "gtag-init"
                 strategy = "afterInteractive"
-                dangerouslySetInnerHTML = {{
+                dangerouslySetInnerHTML = { {
                     __html: `
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
@@ -39,10 +39,10 @@ export default function ContraHacker({ Component, pageProps }) {
                         page_path: window.location.pathname
                         });
                     `
-                }}
+                } }
             />
             <div className = 'flexLayout'>
-                <Component {...pageProps} />
+                <Component { ...pageProps } />
             </div>
         </>
     );
