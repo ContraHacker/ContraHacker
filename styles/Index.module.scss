@@ -1,7 +1,7 @@
 @use './globals.scss';
 
 main.main {
-    display: grid;
+   background: globals.$purple;
 }
 
 .jumbo {
@@ -16,20 +16,20 @@ main.main {
     }
 
     h1 {
-        font-size: 10rem;
+        font-size: clamp(4rem, 10vw, 10rem);
         font-weight: 300;
         line-height: 1;
-        text-rendering: geometricPrecision;
         color: globals.$mint;
         text-shadow: 10px 10px 0 globals.$purple;
         border-left: solid 1px globals.$white;
         background: globals.$violet;
+        flex-shrink: 0;
         z-index: 1;
     }
     
     p {
         font-weight: 300;
-        font-size: 3rem;
+        font-size: clamp(1.25rem, 3vw, 3rem);
         color: globals.$white;
         animation: slide 500ms ease-out forwards;
         white-space: nowrap;
