@@ -1,8 +1,50 @@
+@use './globals.scss';
+
 main.main {
     display: grid;
-    place-items: center;
 }
 
 .jumbo {
-    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: globals.$violet;
+
+    & > * {
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 10rem;
+        font-weight: 300;
+        line-height: 1;
+        text-rendering: geometricPrecision;
+        color: globals.$mint;
+        text-shadow: 10px 10px 0 globals.$purple;
+        border-left: solid 1px globals.$white;
+        background: globals.$violet;
+        z-index: 1;
+    }
+    
+    p {
+        font-weight: 300;
+        font-size: 3rem;
+        color: globals.$white;
+        animation: slide 500ms ease-out forwards;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(100%);
+    }
+    60% {
+        transform: translateX(-7.5%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
