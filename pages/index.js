@@ -22,14 +22,6 @@ export default function Index() {
             answer: 'I am fine, thank you!'
         },
         {
-            question: 'What is the purpose of this website?',
-            answer: 'I dunno, was bored.'
-        },
-        {
-            question: 'Are you a cat person, or a dog person?',
-            answer: 'I am a cat person! 😺'
-        },
-        {
             question: 'What are you doing these days?',
             answer: 'https://ethicainvest.in',
             type: 'link',
@@ -40,6 +32,10 @@ export default function Index() {
             answer: 'https://github.com/ContraHacker/ContraHacker',
             type: 'link',
             displayText: '🔗 See for yourself!'
+        },
+        {
+            question: 'What is the purpose of this website?',
+            answer: 'I dunno, was bored.'
         }
     ];
 
@@ -65,7 +61,7 @@ export default function Index() {
 
                     <div className = { styles.textContent }>
                         <h2>👤 Who&apos;s this Dude?</h2>
-                        <p>I&apos;m a person; web developer from India. Gen-Y with the mentality of a Boomer. Scored 95% introverted on the MBTI test.</p>
+                        <p>I&apos;m a person. A web developer from India.</p>
                     </div>
     
                     <div className = { styles.trivia }>
@@ -106,6 +102,52 @@ export default function Index() {
 
                 </section>
 
+                <section className = { styles.futureContent }>
+
+                    <div className = { styles.textContent }>
+                        <h2>What Else is there on this Website?</h2>
+                        <p>I&apos;ll be adding a bunch of things here. Things like:</p>        
+                    </div>
+
+                    <div className = { styles.plannedContent }>
+                        <ul>
+                            <li>
+                                <h3>Blog</h3>
+                                <p>A place for me to vent. I don&apos;t use Twitter.</p>
+                            </li>
+                            <li>
+                                <h3>Articles</h3>
+                                <p>The serious section of the website. I&apos;ll post educational articles on whatever I feel like. These will be seroiusly search engine optimized.</p>
+                            </li>
+                            <li>
+                                <h3>Gallery</h3>
+                                <p>I have loads of artwork in physical form. Not only it deserves to be seen by people, putting it online will preserve it from damage.</p>
+                            </li>
+                            <li>
+                                <h3>Links</h3>
+                                <p>I have a list of cool online resources and videos. Very neche stuff. I&apos;ll put some of it here.</p>
+                            </li>
+                            <li>
+                                <h3>Google Analytics</h3>
+                                <p>Oh wait! Analytics are already enabled on this site!</p>
+                            </li>
+                            <li>
+                                <h3>Site Metrics</h3>
+                                <p>People will be able to see how well this site is doing, monthly visitors and stuff.</p>
+                            </li>
+                            <li>
+                                <h3>Authorzation and Login System</h3>
+                                <p>I might want to keep some sensitive stuff on the site. If I let people create an account on the site, I can decide who gets to see it.</p>
+                            </li>
+                            <li>
+                                <h3>Utilities</h3>
+                                <p>If the site becomes a PWA, I can make utilities / applets that people might want to use.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                </section>
+
                 <section className = { styles.contact }>
 
                     <div className = { styles.textContent }>
@@ -116,7 +158,7 @@ export default function Index() {
                     <div className = { styles.formContainer }>
                         <form onSubmit = { handleSubmit } className = { styles.form }>
                             <input type = 'text' placeholder = 'Your Name' />
-                            <input type = 'email' placeholder = 'Email' />
+                            <input type = 'email' placeholder = 'Your Contact Info.' />
                             <textarea placeholder = 'Message' />
                             <button type = 'submit'>Send</button>
                         </form>
