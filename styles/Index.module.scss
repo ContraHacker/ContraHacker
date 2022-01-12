@@ -125,6 +125,7 @@ section.futureContent {
     li {
         padding: 5px 10px;
         border: solid thin globals.$mint;
+        min-height: 100px;
     }
 
     h3 {
@@ -201,6 +202,24 @@ section.futureContent {
         color: globals.$purple;
         font-size: 1.125rem;
     }
+}
+
+.counter {
+
+    font-size: 1.25rem;
+    text-align: center;
+    
+    & > * {
+        display: inline;
+    }
+    
+    h1 {
+        font-family: 'Outfit', serif;
+        opacity: 0.75;
+        font-size: clamp(4rem, 10vw, 10rem);
+        color: globals.$purple;
+    }
+
 }
 
 @keyframes slide {

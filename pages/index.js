@@ -1,12 +1,15 @@
 import Head from 'next/head';
 import styles from '../styles/Index.module.scss';
 import { FiChevronDown } from 'react-icons/fi';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Footer from '../components/Footer';
+import axios from 'axios';
+import getApplicationCount from '../lib/getApplicationCount';
 
-export default function Index() {
+export default function Index({ count }) {
 
     const aboutRef = useRef(null);
+    const [localCount, setLocalCount] = useState(count);
 
     function scroll() {
         aboutRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -14,6 +17,21 @@ export default function Index() {
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const form = new FormData(event.target);
+        const formData = Object.fromEntries(form.entries());
+
+        axios.post('/api/submitForm', formData)
+            .then(res => {
+                console.log(res);
+                alert(res.data.message);
+                setLocalCount(localCount + 1);
+            })
+            .catch(err => {
+                console.log(err);
+                alert(err.response.data.message);
+            });
+
     }
 
     const faq = [
@@ -66,7 +84,7 @@ export default function Index() {
     
                     <div className = { styles.trivia }>
                         <h3>🆒 Fun Fact</h3>
-                        <p>I have nothing to do with hacking. In Portuguese, the word &apos;Contra&apos; translates to <u>againts</u>. So I&apos;m against hackers?</p>
+                        <p>I have nothing to do with hacking. In Portuguese, the word &apos;Contra&apos; translates to <u>against</u>. So I&apos;m against hackers?</p>
                     </div>
 
                 </section>
@@ -136,7 +154,7 @@ export default function Index() {
                                 <p>People will be able to see how well this site is doing, monthly visitors and stuff.</p>
                             </li>
                             <li>
-                                <h3>Authorzation and Login System</h3>
+                                <h3>Authorization and Login System</h3>
                                 <p>I might want to keep some sensitive stuff on the site. If I let people create an account on the site, I can decide who gets to see it.</p>
                             </li>
                             <li>
@@ -152,16 +170,21 @@ export default function Index() {
 
                     <div className = { styles.textContent }>
                         <h2>📢 Yell at Me</h2>
-                        <p>I don&apos; know why you would want to, but here&apos;s where you can reach me. The <i>contact</i> section... ugh.</p>
+                        <p>I don&apos;t know why you would want to, but here&apos;s where you can reach me. The <i>contact</i> section... ugh.</p>
                     </div>
 
                     <div className = { styles.formContainer }>
                         <form onSubmit = { handleSubmit } className = { styles.form }>
-                            <input type = 'text' placeholder = 'Your Name' />
-                            <input type = 'email' placeholder = 'Your Contact Info.' />
-                            <textarea placeholder = 'Message' />
+                            <input name = 'name' type = 'text' placeholder = 'Your Name' />
+                            <input name = 'email' type = 'text' placeholder = 'Your Email' />
+                            <textarea name = 'content' placeholder = 'Message' />
                             <button type = 'submit'>Send</button>
                         </form>
+                        
+                        <div className = { styles.counter }>
+                            <h1>{ localCount }</h1><p> messages received already... wow.</p>
+                        </div>
+
                     </div>
 
                 </section>
@@ -171,4 +194,13 @@ export default function Index() {
             <Footer />
         </>
     );
+}
+
+export async function getStaticProps() {
+    return {
+        props: {
+            count: await getApplicationCount()
+        },
+        revalidate: 60 * 5 // 5 minutes
+    };
 }

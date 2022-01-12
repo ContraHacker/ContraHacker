@@ -1,8 +1,9 @@
-import '../styles/globals.css';
-import { useEffect } from 'react';
-import Script from 'next/script';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
+import { useEffect } from 'react';
 import * as gtag from '../lib/gtag';
+import '../styles/globals.css';
+import Head from 'next/head';
 
 export default function ContraHacker({ Component, pageProps }) {
 
@@ -23,6 +24,9 @@ export default function ContraHacker({ Component, pageProps }) {
 
     return (
         <>
+            <Head>
+                <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' />
+            </Head>
             <Script
                 strategy = "afterInteractive"
                 src = { `https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}` }
