@@ -61,6 +61,7 @@ export default function Index({ count }) {
         <>
             <Head>
                 <title>ContraHacker | Ibrahim Farooqui</title>
+                <meta description = "Ibrahim Farooqui's personal website." />
             </Head>
 
             <main className = { styles.main }>

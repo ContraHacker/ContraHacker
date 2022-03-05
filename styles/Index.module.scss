@@ -6,6 +6,7 @@ main.main {
 
 section.jumbo {
     min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,6 +16,7 @@ section.jumbo {
 }
 
 .arrow {
+
     position: absolute;
     bottom: 2rem;
     animation: wiggle 1s ease-in-out infinite alternate;
@@ -30,50 +32,48 @@ section.jumbo {
 }
 
 .text {
+
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
 
-    & > * {
-        padding: 2rem;
-        flex-shrink: 0;
-    }
-
     h1 {
+        border-top: solid 1px globals.$white;
+        text-align: center;
         font-size: clamp(4rem, 10vw, 10rem);
         font-weight: 300;
         line-height: 1;
         color: globals.$mint;
         text-shadow: 10px 10px 0 globals.$purple;
-        border-left: solid 1px globals.$white;
         background: globals.$violet;
         z-index: 1;
     }
-    
+
     h2 {
         font-weight: 300;
         font-size: clamp(1.25rem, 3vw, 3rem);
         color: globals.$white;
-        animation: slide 500ms ease-out forwards;
         white-space: nowrap;
         overflow: hidden;
-        text-align: right;
+        animation: slideFromBottom 500ms ease-out forwards;
+        text-align: center;
+    }
+
+    & > * {
+        padding: 2rem;
+        flex-shrink: 0;
     }
 }
 
 @mixin textPadding {
-    margin: 6rem 10%;
-    padding-bottom: 6rem;
+    margin: 6rem 8%;
     border-bottom: solid thin #ddd;
+    padding-bottom: 2rem;
 }
 
 section.about {
     @include textPadding;
-    display: grid;
-    grid-template-rows: 100%;
-    grid-template-columns: 3fr 2fr;
-    column-gap: 2rem;
-    align-items: center;
 }
 
 section.contact {
@@ -94,8 +94,9 @@ section.futureContent {
 
 .trivia {
 
+    margin-top: 2rem;
     background: globals.$sky;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     color: #333;
 
     h3 {
@@ -118,7 +119,7 @@ section.futureContent {
         padding: 0;
         margin: 0;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
         grid-gap: 2rem;
     }
 
@@ -177,13 +178,16 @@ section.futureContent {
         list-style: none;
         padding: 0;
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
     }
 
     li {
-        margin-bottom: 1rem;
+
         padding: 1rem 2rem;
         background: globals.$sky;
-        border: solid 1px globals.$mint;
+        border: solid thin globals.$mint;
         transition: all 100ms ease-in-out;
         
         &:hover {
@@ -196,11 +200,14 @@ section.futureContent {
         color: globals.$violet;
         font-size: 1.25rem;
         margin-bottom: 3px;
+        border-left: solid 4px globals.$mint;
+        padding-left: 8px;
     }
 
     p {
         color: globals.$purple;
         font-size: 1.125rem;
+        padding-left: 12px;
     }
 }
 
@@ -255,32 +262,40 @@ section.futureContent {
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (min-width: 500px) {
 
     .text {
 
-        flex-direction: column;
+        flex-direction: row;
 
         h1 {
-            border-left: none;
-            border-top: solid 1px globals.$white;
-            text-align: center;
+            border-top: none;
+            border-left: solid 1px globals.$white;
         }
 
         h2 {
-            animation: slideFromBottom 500ms ease-out forwards;
-            text-align: center;
+            animation: slide 500ms ease-out forwards;
+            text-align: right;
         }
+    }
+
+    .plannedContent ul {
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (min-width: 720px) {
 
     section.about {
-        grid-template-columns: 100%;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        align-items: center;
+        column-gap: 1rem;
     }
 
     .trivia {
-        padding: 1rem 2rem;
+        padding: 1rem 3rem;
+        max-width: 30rem;
+        margin-left: auto;
     }
 }

@@ -4,44 +4,41 @@ foooter.footer {
     bottom: 0;
 }
 
-.grid {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    grid-template-columns: 100%;
-}
-
 .credits {
     background: globals.$purple;
     text-align: center;
-    font-weight: 400;
+    font-weight: 600;
     font-family: 'MuseoModerno', cursive;
-    color: globals.$white;
-    padding: 2rem;
+    color: darken(globals.$purple, 9%);
+    padding: 0.5rem;
+    text-shadow: 0 0 23px lighten(globals.$purple, 35%);
 }
 
-.links {
+.clickys {
+
     background: globals.$mint;
     padding: 2rem 10%;
     
     h2 {
         color: globals.$violet;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 400;
         font-family: 'MuseoModerno', cursive;
     }
+}
 
-    ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+.links {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-    li {
+    span {
         font-family: 'Outfit', sans-serif;
-        font-size: 1.25rem;
         padding: 0.5rem 0;
         display: flex;
         align-items: center;
-        column-gap: 5px;
+        column-gap: 8px;
+        text-rendering: optimizeLegibility;
+        cursor: pointer;
     }
 }
