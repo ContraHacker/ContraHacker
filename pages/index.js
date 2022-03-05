@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import styles from '../styles/Index.module.scss';
-import { FiChevronDown } from 'react-icons/fi';
-import { useRef, useState } from 'react';
-import Footer from '../components/Footer';
 import axios from 'axios';
+import Head from 'next/head';
+import { useRef, useState } from 'react';
+import { FiChevronDown } from 'react-icons/fi';
+import Footer from '../components/Footer';
 import getApplicationCount from '../lib/getApplicationCount';
+import styles from '../styles/Index.module.scss';
 
 export default function Index({ count }) {
 
