@@ -5,6 +5,7 @@ import { FiChevronDown } from 'react-icons/fi';
 import Footer from '../components/Footer';
 import getApplicationCount from '../lib/getApplicationCount';
 import styles from '../styles/Index.module.scss';
+import Navigation from '../components/Navigation';
 
 export default function Index({ count }) {
 
@@ -64,6 +65,8 @@ export default function Index({ count }) {
                 <meta description = "Ibrahim Farooqui's personal website." />
             </Head>
 
+            <Navigation />
+
             <main className = { styles.main }>
 
                 <section className = { styles.jumbo }>
@@ -80,7 +83,7 @@ export default function Index({ count }) {
 
                     <div className = { styles.textContent }>
                         <h2>👤 Who&apos;s this Dude?</h2>
-                        <p>I&apos;m a person. A web developer from India.</p>
+                        <p>Indian, Gen-Y,</p>
                     </div>
     
                     <div className = { styles.trivia }>

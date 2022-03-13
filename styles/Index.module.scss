@@ -2,6 +2,7 @@
 
 main.main {
    background: globals.$white;
+    overflow-y: hidden;
 }
 
 section.jumbo {
@@ -48,6 +49,7 @@ section.jumbo {
         text-shadow: 10px 10px 0 globals.$purple;
         background: globals.$violet;
         z-index: 1;
+        animation: pulse 1s ease-in-out infinite alternate;
     }
 
     h2 {
@@ -262,6 +264,12 @@ section.futureContent {
     }
     to {
         margin-bottom: -5px;
+    }
+}
+
+@keyframes pulse {
+    to {
+        text-shadow: 5px 5px 0 globals.$purple;
     }
 }
 
