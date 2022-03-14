@@ -41,7 +41,7 @@ export default function Index({ count }) {
             answer: 'I am fine, thank you!'
         },
         {
-            question: 'What are you doing these days?',
+            question: 'What do you do?',
             answer: 'https://ethicainvest.in',
             type: 'link',
             displayText: '🔗 Ethica Invest'
@@ -83,7 +83,7 @@ export default function Index({ count }) {
 
                     <div className = { styles.textContent }>
                         <h2>👤 Who&apos;s this Dude?</h2>
-                        <p>Indian, Gen-Y,</p>
+                        <p>Greetings, I am Ibrahim from India. I love talking about irrational numbers, UX designing, programming, astronomy, computer science, CPUs, and everything nerdy. Please add economics & finance to the list.</p>
                     </div>
     
                     <div className = { styles.trivia }>
