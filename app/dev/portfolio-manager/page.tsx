@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 type SearchResult = {
@@ -15,6 +16,7 @@ type SearchResult = {
 type Security = {
     code: string;
     name: string;
+    logo: string;
     low: number;
     high: number;
     average: number;
@@ -39,6 +41,7 @@ type FundamentalData = {
     name: string;
     sector: string;
     industry: string;
+    logo: string;
 };
 
 export default function PortfolioManager() {
@@ -93,6 +96,7 @@ export default function PortfolioManager() {
         const new_security: Security = {
             code: security.Code,
             name: security.Name,
+            logo: '',
             low: 0,
             high: 0,
             average: 0,
@@ -103,8 +107,8 @@ export default function PortfolioManager() {
             buy_quantity: 0
         };
 
-        const eod_promise = fetch(`/eod-data?code=${security.Code}`);
-        const fundamental_promise = fetch(`/fundamental-data?code=${security.Code}`);
+        const eod_promise = fetch(`/eod-data?code=${security.Code}`, { headers: { 'x-secret-key': '0laRHvSL7XQu3MPf/JCKZA==' } });
+        const fundamental_promise = fetch(`/fundamental-data?code=${security.Code}`, { headers: { 'x-secret-key': '0laRHvSL7XQu3MPf/JCKZA==' } });
 
         await Promise.all([eod_promise, fundamental_promise])
             .then(responses => Promise.all(responses.map(res => res.json())))
@@ -119,6 +123,7 @@ export default function PortfolioManager() {
                 new_security.date = eod_data.date;
                 new_security.sector = fundamental_data.sector;
                 new_security.industry = fundamental_data.industry;
+                new_security.logo = fundamental_data.logo ? `https://eodhistoricaldata.com${fundamental_data.logo}` : '';
 
             })
             .catch(error => {
@@ -138,6 +143,7 @@ export default function PortfolioManager() {
         const security = {
             code: selected_security.code,
             name: selected_security.name,
+            logo: selected_security.logo,
             low: selected_security.low,
             high: selected_security.high,
             average: selected_security.average,
@@ -152,8 +158,6 @@ export default function PortfolioManager() {
         set_selected_security(null);
         set_modal_open(false);
         set_query('');
-
-        console.log(securities);
     }
 
     return (
@@ -216,7 +220,7 @@ export default function PortfolioManager() {
                                                 <span className = 'font-bold'>Average: { selected_security.average }</span>
                                                 <span className = 'font-bold'>Date: { selected_security.date }</span>
                                             </div>
-
+                                            <p>{ selected_security.logo }</p>
                                             <div className = 'flex justify-between gap-x-8'>
 
                                                 <fieldset className = 'space-x-4'>
@@ -261,9 +265,10 @@ export default function PortfolioManager() {
 
                 <div className = 'mt-8'>
                     <h2 className = 'text-xl font-bold'>Portfolio</h2>
-                    <table className = 'w-full mt-4'>
+                    <table className = 'w-full mt-4 text-sm'>
                         <thead>
                             <tr className = 'bg-zinc-800'>
+                                <th className = 'p-4 text-left'>Logo</th>
                                 <th className = 'p-4 text-left'>Code</th>
                                 <th className = 'p-4 text-left'>Name</th>
                                 <th className = 'p-4 text-left'>Sector</th>
@@ -281,6 +286,15 @@ export default function PortfolioManager() {
                                 securities.map(security => {
                                     return (
                                         <tr key = { security.code }>
+                                            <td className = 'w-16 h-16 p-2'>
+                                                {
+                                                    security.logo !== '' ? (
+                                                        <Image src = { security.logo } alt = { security.name } width = { 64 } height = { 64 } />
+                                                    ) : (
+                                                        <div className = 'flex justify-center items-center w-16 h-16 bg-white text-zinc-600 font-bold text-2xl'>{ security.code[0] }</div>
+                                                    )
+                                                }
+                                            </td>
                                             <td className = 'p-4'>{ security.code }</td>
                                             <td className = 'p-4'>{ security.name }</td>
                                             <td className = 'p-4'>{ security.sector }</td>
@@ -299,8 +313,8 @@ export default function PortfolioManager() {
                                 })
                             }
                                 <tr className = 'bg-zinc-800'>
-                                    <td colSpan = { 9 } className = 'p-4'>Total</td>
-                                    <td className = 'p-4 font-bold'>{ portfolio_value }</td>
+                                    <td colSpan = { 10 } className = 'p-4'>Total</td>
+                                    <td className = 'p-4 font-bold'>{ portfolio_value.toFixed(2) }</td>
                                 </tr>
                         </tbody>
                     </table>
