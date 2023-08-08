@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import type { Metadata } from 'next';
+import { AxiomWebVitals } from 'next-axiom';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -17,6 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang = 'en'>
+      <AxiomWebVitals />
       <body className = { cx(inter.className, 'dark:bg-zinc-900 dark:text-zinc-100') }>{ children }</body>
     </html>
   );

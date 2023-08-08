@@ -4,103 +4,103 @@ const API_KEY = process.env.EODHD_API_KEY;
 const SECRET_KEY = process.env.STATIC_SECRET_KEY;
 
 const memory = {
-    last_timestamp: 0
+  last_timestamp: 0
 };
 
 export async function GET(request: NextRequest) {
 
-    const secret_key = request.headers.get('x-secret-key');
+  const secret_key = request.headers.get('x-secret-key');
     
-    if (!SECRET_KEY || typeof SECRET_KEY === 'undefined') {
-        throw new Error('STATIC_SECRET_KEY is not defined');
-    }
+  if (!SECRET_KEY || typeof SECRET_KEY === 'undefined') {
+    throw new Error('STATIC_SECRET_KEY is not defined');
+  }
     
-    if (secret_key !== SECRET_KEY) {
+  if (secret_key !== SECRET_KEY) {
 
-        const identifiable_info = {
-            ip: request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip'),
-            user_agent: request.headers.get('user-agent'),
-            timestamp: Date.now()
-        };
+    const identifiable_info = {
+      ip: request.headers.get('x-forwarded-for') || request.headers.get('cf-connecting-ip'),
+      user_agent: request.headers.get('user-agent'),
+      timestamp: Date.now()
+    };
 
-        console.warn('unauthorized access attempt');
-        console.table(identifiable_info);
+    console.warn('unauthorized access attempt');
+    console.table(identifiable_info);
 
-        return NextResponse.json({
-            data: null,
-            error: 'unauthorized',
-            status: 401
-        });
-    }
+    return NextResponse.json({
+      data: null,
+      error: 'unauthorized',
+      status: 401
+    });
+  }
     
-    const timestamp = Date.now();
+  const timestamp = Date.now();
 	
-	if (timestamp - memory.last_timestamp < 5000) {
+  if (timestamp - memory.last_timestamp < 5000) {
 
-        console.warn('too many requests');
+    console.warn('too many requests');
 
-		return NextResponse.json({
-			data: [],
-			status: 429,
-			error: 'too many requests'
-		});
-	}
+    return NextResponse.json({
+      data: [],
+      status: 429,
+      error: 'too many requests'
+    });
+  }
 	
-	memory.last_timestamp = timestamp;
+  memory.last_timestamp = timestamp;
 
-    const { searchParams } = new URL(request.url);
-    let code = searchParams.get('code');
+  const { searchParams } = new URL(request.url);
+  let code = searchParams.get('code');
 
-    if (!code) {
+  if (!code) {
+    return NextResponse.json({
+      data: null,
+      error: 'no code provided',
+      status: 400
+    });
+  }
+
+  code = code.trim().toUpperCase();
+
+  const url = new URL(`${ code }.NSE`, 'https://eodhistoricaldata.com/api/eod/');
+
+  if (!API_KEY || typeof API_KEY === 'undefined') {
+    throw new Error('EODHD_API_KEY is not defined');
+  }
+
+  const params = new URLSearchParams();
+  params.append('api_token', API_KEY);
+  params.append('fmt', 'json');
+  params.append('period', 'd');
+  params.append('order', 'd');
+  params.append('from', new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
+
+  url.search = params.toString();
+
+  return await fetch(url.href)
+    .then(res => res.json())
+    .then(data => {
+
+      if (!data.length) {
         return NextResponse.json({
-            data: null,
-            error: 'no code provided',
-            status: 400
+          data: null,
+          error: 'data not found',
+          status: 404
         });
-    }
+      }
 
-    code = code.trim().toUpperCase();
+      return NextResponse.json({
+        data: data.at(0),
+        status: 200
+      });
+    })
+    .catch(error => {
 
-    const url = new URL(`${ code }.NSE`, 'https://eodhistoricaldata.com/api/eod/');
+      console.error(error);
 
-    if (!API_KEY || typeof API_KEY === 'undefined') {
-        throw new Error('EODHD_API_KEY is not defined');
-    }
-
-    const params = new URLSearchParams();
-    params.append('api_token', API_KEY);
-    params.append('fmt', 'json');
-    params.append('period', 'd');
-    params.append('order', 'd');
-    params.append('from', new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
-
-    url.search = params.toString();
-
-    return await fetch(url.href)
-        .then(res => res.json())
-        .then(data => {
-
-            if (!data.length) {
-                return NextResponse.json({
-                    data: null,
-                    error: 'data not found',
-                    status: 404
-                });
-            }
-
-            return NextResponse.json({
-                data: data.at(0),
-                status: 200
-            });
-        })
-        .catch(error => {
-
-            console.error(error);
-
-            return NextResponse.json({
-                data: null,
-                error,
-                status: 500
-            });
-        });
+      return NextResponse.json({
+        data: null,
+        error,
+        status: 500
+      });
+    });
 }
