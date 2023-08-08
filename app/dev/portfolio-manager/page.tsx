@@ -48,7 +48,11 @@ type FundamentalData = {
 export default function PortfolioManager() {
 
   const log = useLogger();
+  console.log('Portfolio Manager page loaded');
   log.info('Portfolio Manager page loaded', { page: 'Portfolio Manager', timestamp: Date.now() });
+  log.debug('Portfolio Manager page loaded', { page: 'Portfolio Manager', timestamp: Date.now() });
+  log.warn('Portfolio Manager page loaded', { page: 'Portfolio Manager', timestamp: Date.now() });
+  log.error('Portfolio Manager page loaded', { page: 'Portfolio Manager', timestamp: Date.now() });
 
   //#region Search
 
